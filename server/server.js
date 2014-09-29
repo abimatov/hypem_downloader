@@ -17,7 +17,8 @@ http.createServer(function(request, response){
 		console.log('request data parsed');
 		
 		var track = JSON.parse(data);
-		var filePath = 'tracks/' + track.artist + ' - ' + track.song + '.mp3';
+		var absolutePath = "C:\\Users\\abimatov\\Music\\hypem\\";
+		var filePath = absolutePath + track.artist + ' - ' + track.song + '.mp3';
 		
 		if(!fs.existsSync(filePath)) {
 			var file = fs.createWriteStream(filePath);

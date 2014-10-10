@@ -43,18 +43,57 @@ var addClickHandlers = function(){
 
 };
 
+var downloadAllFavoriteTracks = function(){
+	var time = 0;
+	$.each($('.fav-on'), function(i,e){
+		setTimeout(function(){
+		var self = $(e);
+		var id = self.attr('id');
+		if(id.indexOf('fav_item_') < 0) return true;
+		id = id.replace('fav_item_','');
+		if(id === '') return true;
+		
+		console.log(id);
+		var track = getTrackFromDisplayList(id);
+		var downloadUrl = 'http://hypem.com/serve/source/' 
+		+ track.id + '/' + track.key;
+		console.log(downloadUrl);
+		
+		$.getJSON(downloadUrl, function(data){            
+			var _track = getTrackFromDisplayList(data.itemid);
+			console.log('found favorite: ' + _track);
+			
+			$.ajax({
+			  url: 'http://127.0.0.1:8000',
+			  type: 'POST',
+			  data: JSON.stringify($.extend(_track, { downloadUrl: data.url }))
+			});
+		});
+		}, time);
+		
+		time += 500;
+	});
+};
+
 var getTrackFromDisplayList = function(trackId){
     return $.grep(displayList.tracks, function(e, i){
     	return e.id === trackId;
     })[0];
 };
 
-setTimeout(function(){
+var onLoad = function(){
 	addClickHandlers();
+	downloadAllFavoriteTracks();
+};
+
+setTimeout(function(){
+	onLoad();
 	
-	$('.paginator a').click(function(e){
+	$('.paginator a, [href="/abimatov"]').click(function(e){
 		setTimeout(function(){
-			addClickHandlers();
+			onLoad();
 		}, 5000);
 	});
+	
+	
 }, 2000);

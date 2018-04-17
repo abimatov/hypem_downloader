@@ -3,7 +3,7 @@
 // @namespace  http://use.i.E.your.homepage/
 // @version    0.1
 // @description  enter something useful
-// @match      http://hypem.com/*
+// @match      https://hypem.com/*
 // @copyright  2012+, You
 // ==/UserScript==
 
@@ -19,7 +19,7 @@ var addClickHandlers = function(){
 		
 		console.log(id);
 		var track = getTrackFromDisplayList(id);
-		var downloadUrl = 'http://hypem.com/serve/source/' 
+		var downloadUrl = 'https://hypem.com/serve/source/' 
 		+ track.id + '/' + track.key;
 		console.log(downloadUrl);
 		
@@ -55,7 +55,7 @@ var downloadAllFavoriteTracks = function(){
 		
 		console.log(id);
 		var track = getTrackFromDisplayList(id);
-		var downloadUrl = 'http://hypem.com/serve/source/' 
+		var downloadUrl = 'https://hypem.com/serve/source/' 
 		+ track.id + '/' + track.key;
 		console.log(downloadUrl);
 		
